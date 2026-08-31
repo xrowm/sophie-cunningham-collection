@@ -3,562 +3,548 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta name="description" content="Sophie Cunningham Collection — merchandise, memorabilia and exclusive auctions.">
   <meta name="theme-color" content="#08090c">
-
   <title>Sophie Cunningham | Collection</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#08090c;
+      --panel:#111318;
+      --panel2:#171920;
+      --text:#f7f7f7;
+      --muted:#a6a8b0;
+      --line:rgba(255,255,255,.09);
+      --max:1180px;
     }
 
-    :root {
-      --bg: #08090c;
-      --panel: #111318;
-      --panel-light: #171920;
-      --text: #f5f5f5;
-      --muted: #a7a9b0;
-      --line: rgba(255,255,255,.09);
-      --max: 1180px;
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
     }
 
-    html {
-      scroll-behavior: smooth;
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    .container{width:min(92%,var(--max));margin:auto}
+
+    /* NAV */
+    nav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(8,9,12,.95);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .brand{
+      font-size:17px;
+      font-weight:800;
+      letter-spacing:.8px;
     }
 
-    button {
-      font: inherit;
-      cursor: pointer;
+    .navlinks{
+      display:flex;
+      gap:24px;
+      list-style:none;
+      color:#d7d7db;
+      font-size:14px;
     }
 
-    .container {
-      width: min(92%, var(--max));
-      margin: auto;
-    }
+    .navlinks a:hover{color:white}
 
-    /* NAVIGATION */
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8,9,12,.95);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-inner {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: .8px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 25px;
-      list-style: none;
-      color: #d8d8dc;
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .cart-button {
-      border: 0;
-      background: #fff;
-      color: #000;
-      border-radius: 999px;
-      padding: 10px 16px;
-      font-weight: 700;
+    .cart-btn{
+      border:0;
+      background:white;
+      color:#000;
+      border-radius:999px;
+      padding:10px 17px;
+      font-weight:700;
     }
 
     /* HERO */
-
-    .hero {
-      min-height: 650px;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid var(--line);
-
+    .hero{
+      min-height:650px;
+      display:flex;
+      align-items:center;
+      border-bottom:1px solid var(--line);
       background:
-        radial-gradient(circle at 75% 25%, rgba(255,255,255,.12), transparent 34%),
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,.05), transparent 30%),
-        linear-gradient(125deg, #08090c, #16181e);
+        radial-gradient(circle at 78% 25%,rgba(255,255,255,.13),transparent 34%),
+        radial-gradient(circle at 15% 80%,rgba(255,255,255,.05),transparent 30%),
+        linear-gradient(125deg,#08090c,#171920);
     }
 
-    .hero-content {
-      max-width: 720px;
-      padding: 100px 0;
+    .hero-content{
+      max-width:720px;
+      padding:100px 0;
     }
 
-    .eyebrow {
-      color: #bfc1c8;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 18px;
+    .eyebrow{
+      color:#bfc1c8;
+      text-transform:uppercase;
+      letter-spacing:2.5px;
+      font-size:11px;
+      font-weight:700;
+      margin-bottom:17px;
     }
 
-    h1 {
-      font-size: clamp(44px, 7vw, 80px);
-      line-height: .96;
-      letter-spacing: -3px;
-      margin-bottom: 26px;
+    h1{
+      font-size:clamp(44px,7vw,80px);
+      line-height:.96;
+      letter-spacing:-3px;
+      margin-bottom:25px;
     }
 
-    .hero p {
-      max-width: 600px;
-      color: #c5c6ca;
-      font-size: 18px;
-      margin-bottom: 32px;
+    .hero p{
+      max-width:600px;
+      color:#c4c6cb;
+      font-size:18px;
+      margin-bottom:30px;
     }
 
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    .primary,
-    .secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 21px;
-      border-radius: 999px;
-      font-weight: 700;
-      border: 1px solid var(--line);
-      transition: .2s ease;
+    .primary,.secondary{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      padding:13px 21px;
+      border-radius:999px;
+      font-weight:700;
+      border:1px solid var(--line);
+      transition:.2s;
     }
 
-    .primary {
-      background: #fff;
-      color: #000;
-    }
-
-    .secondary {
-      background: transparent;
-      color: #fff;
-    }
-
-    .primary:hover,
-    .secondary:hover {
-      transform: translateY(-2px);
-    }
+    .primary{background:white;color:black}
+    .secondary{background:transparent;color:white}
+    .primary:hover,.secondary:hover{transform:translateY(-2px)}
 
     /* SECTIONS */
+    section{padding:82px 0}
 
-    section {
-      padding: 85px 0;
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:25px;
+      margin-bottom:30px;
     }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 25px;
-      margin-bottom: 30px;
+    .section-head h2{
+      font-size:36px;
+      letter-spacing:-1px;
     }
 
-    .section-head h2 {
-      font-size: 35px;
-      letter-spacing: -1px;
+    .section-head p{
+      color:var(--muted);
+      max-width:520px;
     }
 
-    .section-head p {
-      color: var(--muted);
-      max-width: 510px;
+    /* SHOP */
+    .products{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
     }
 
-    /* PRODUCTS */
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .product{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      transition:.2s;
     }
 
-    .product {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      transition: .2s ease;
+    .product:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,255,255,.22);
     }
 
-    .product:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,255,255,.2);
+    .product-img{
+      height:280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+      background:linear-gradient(145deg,#272a32,#0e0f13);
+      color:#858891;
+      font-size:13px;
     }
 
-    .product-image {
-      height: 285px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+    .product-info{padding:21px}
 
-      background:
-        linear-gradient(145deg, #242730, #0e0f13);
-
-      color: #858891;
-      font-size: 13px;
-      padding: 20px;
+    .product-info h3{
+      margin-bottom:7px;
+      font-size:18px;
     }
 
-    .product-info {
-      padding: 21px;
+    .product-info p{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:17px;
     }
 
-    .product-info h3 {
-      margin-bottom: 7px;
-      font-size: 18px;
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
     }
 
-    .product-info p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 17px;
+    .price{font-weight:800}
+
+    .add{
+      border:0;
+      background:white;
+      color:black;
+      padding:9px 15px;
+      border-radius:999px;
+      font-weight:700;
     }
 
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+    /* AUCTIONS */
+    .auction-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
     }
 
-    .price {
-      font-weight: 800;
+    .auction-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
     }
 
-    .add {
-      border: 0;
-      background: #fff;
-      color: #000;
-      padding: 9px 15px;
-      border-radius: 999px;
-      font-weight: 700;
+    .auction-img{
+      height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+      color:#858891;
+      background:linear-gradient(145deg,#292c34,#101116);
     }
 
-    /* AUCTION */
+    .auction-info{padding:24px}
 
-    .auction {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 30px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 35px;
-      align-items: center;
+    .auction-info h3{
+      font-size:25px;
+      margin-bottom:8px;
     }
 
-    .auction-image {
-      min-height: 350px;
-      border-radius: 16px;
-      background:
-        linear-gradient(145deg, #282b33, #101116);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      color: #8d9098;
-      padding: 25px;
+    .auction-info p{
+      color:var(--muted);
+      margin-bottom:18px;
     }
 
-    .auction-info h3 {
-      font-size: 33px;
-      margin-bottom: 12px;
+    .auction-meta{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:18px;
     }
 
-    .auction-info p {
-      color: var(--muted);
-      margin-bottom: 22px;
+    .meta{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:13px;
     }
 
-    .bid-box {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      margin-bottom: 18px;
+    .meta small{
+      display:block;
+      color:var(--muted);
+      margin-bottom:3px;
     }
 
-    .bid-box small {
-      color: var(--muted);
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .bid {
-      font-size: 25px;
-      font-weight: 800;
-    }
+    .meta strong{font-size:18px}
 
     /* ABOUT */
-
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 45px;
-      align-items: center;
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:45px;
+      align-items:center;
     }
 
-    .about h2 {
-      font-size: 39px;
-      line-height: 1.05;
-      margin-bottom: 17px;
+    .about h2{
+      font-size:40px;
+      line-height:1.05;
+      margin-bottom:17px;
     }
 
-    .about-text {
-      color: var(--muted);
-      max-width: 560px;
+    .about-text{color:var(--muted);max-width:570px}
+
+    .about-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:34px;
     }
 
-    .about-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 35px;
+    .about-card h3{
+      font-size:27px;
+      margin-bottom:13px;
     }
 
-    .about-card h3 {
-      font-size: 27px;
-      margin-bottom: 14px;
-    }
-
-    .about-card p {
-      color: var(--muted);
-      margin-bottom: 12px;
+    .about-card p{
+      color:var(--muted);
+      margin-bottom:10px;
     }
 
     /* SUPPORT */
-
-    .support {
-      text-align: center;
-      background: #0e1015;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+    .support{
+      text-align:center;
+      background:#0e1015;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
-    .support p {
-      max-width: 620px;
-      margin: 12px auto 26px;
-      color: var(--muted);
+    .support p{
+      color:var(--muted);
+      max-width:620px;
+      margin:12px auto 25px;
     }
 
     /* FOOTER */
-
-    footer {
-      padding: 42px 0;
-      color: #858790;
-      font-size: 13px;
+    footer{
+      padding:42px 0;
+      color:#858790;
+      font-size:13px;
     }
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+    .footer{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
     }
 
     /* CART */
-
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,.72);
+    .overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:200;
+      background:rgba(0,0,0,.75);
     }
 
-    .overlay.active {
-      display: block;
+    .overlay.active{display:block}
+
+    .cart{
+      position:fixed;
+      top:0;
+      right:0;
+      z-index:201;
+      width:min(450px,94%);
+      height:100vh;
+      overflow-y:auto;
+      padding:25px;
+      background:#111318;
+      border-left:1px solid var(--line);
+      transform:translateX(100%);
+      transition:.25s;
     }
 
-    .cart {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(430px, 92%);
-      height: 100vh;
-      background: #111318;
-      border-left: 1px solid var(--line);
-      z-index: 201;
+    .cart.active{transform:translateX(0)}
 
-      transform: translateX(100%);
-      transition: transform .25s ease;
-
-      padding: 25px;
-      overflow-y: auto;
+    .cart-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:25px;
     }
 
-    .cart.active {
-      transform: translateX(0);
+    .close{
+      border:0;
+      background:none;
+      color:white;
+      font-size:28px;
     }
 
-    .cart-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
+    .cart-item{
+      padding:16px 0;
+      border-bottom:1px solid var(--line);
     }
 
-    .close {
-      border: 0;
-      background: transparent;
-      color: #fff;
-      font-size: 27px;
+    .cart-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
     }
 
-    .cart-item {
-      border-bottom: 1px solid var(--line);
-      padding: 16px 0;
+    .remove{
+      border:0;
+      background:none;
+      color:#999;
     }
 
-    .cart-item-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
+    .empty{color:var(--muted)}
+
+    .cart-total{
+      margin-top:22px;
+      font-size:20px;
+      font-weight:800;
     }
 
-    .remove {
-      background: none;
-      border: 0;
-      color: #999;
+    .checkout-btn{
+      width:100%;
+      border:0;
+      background:white;
+      color:black;
+      padding:14px;
+      border-radius:999px;
+      font-weight:800;
+      margin-top:20px;
     }
 
-    .empty {
-      color: var(--muted);
+    /* MODALS */
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:300;
+      background:rgba(0,0,0,.8);
+      align-items:center;
+      justify-content:center;
+      padding:20px;
     }
 
-    .checkout {
-      margin-top: 25px;
-      width: 100%;
-      border: 0;
-      background: #fff;
-      color: #000;
-      padding: 14px;
-      border-radius: 999px;
-      font-weight: 800;
+    .modal.active{display:flex}
+
+    .modal-card{
+      width:min(570px,100%);
+      max-height:90vh;
+      overflow-y:auto;
+      background:#15171d;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:30px;
     }
 
-    /* MODAL */
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 300;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.78);
-      padding: 20px;
+    .modal-card h2{
+      margin-bottom:10px;
+      font-size:29px;
     }
 
-    .modal.active {
-      display: flex;
+    .modal-card>p{
+      color:var(--muted);
+      margin-bottom:22px;
     }
 
-    .modal-card {
-      width: min(500px, 100%);
-      background: #15171d;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 30px;
+    /* CHECKOUT */
+    .checkout-summary{
+      background:#0d0f13;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:17px;
+      margin-bottom:20px;
     }
 
-    .modal-card h2 {
-      margin-bottom: 12px;
+    .checkout-line{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 0;
+      border-bottom:1px solid var(--line);
     }
 
-    .modal-card p {
-      color: var(--muted);
-      margin-bottom: 22px;
+    .checkout-line:last-child{border-bottom:0}
+
+    .field{margin-bottom:15px}
+
+    .field label{
+      display:block;
+      font-size:13px;
+      margin-bottom:7px;
+      color:#d6d7db;
     }
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    .field input,
+    .field textarea,
+    .field select{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:11px;
+      background:#0d0f13;
+      color:white;
+      padding:12px;
+      outline:none;
+    }
+
+    .field textarea{
+      min-height:100px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus{
+      border-color:rgba(255,255,255,.35);
+    }
+
+    .notice{
+      border:1px solid var(--line);
+      background:#0d0f13;
+      border-radius:13px;
+      padding:14px;
+      color:#b8bac0;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:20px;
     }
 
     /* MOBILE */
-
-    @media (max-width: 850px) {
-      .products {
-        grid-template-columns: 1fr 1fr;
+    @media(max-width:850px){
+      .products,
+      .auction-grid{
+        grid-template-columns:1fr 1fr;
       }
 
-      .auction,
-      .about {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        display: none;
-      }
+      .about{grid-template-columns:1fr}
+      .navlinks{display:none}
     }
 
-    @media (max-width: 560px) {
-      section {
-        padding: 60px 0;
+    @media(max-width:560px){
+      section{padding:60px 0}
+
+      .products,
+      .auction-grid{
+        grid-template-columns:1fr;
       }
 
-      .products {
-        grid-template-columns: 1fr;
-      }
+      .hero{min-height:580px}
 
-      .hero {
-        min-height: 580px;
-      }
+      .hero-content{padding:80px 0}
 
-      .hero-content {
-        padding: 80px 0;
-      }
+      h1{letter-spacing:-2px}
 
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      .auction {
-        padding: 18px;
-      }
-
-      .auction-image {
-        min-height: 260px;
-      }
+      .auction-meta{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -566,22 +552,21 @@
 <body>
 
   <!-- NAVIGATION -->
-
   <nav>
-    <div class="container nav-inner">
+    <div class="container nav">
 
       <a href="#" class="brand">
         SOPHIE CUNNINGHAM
       </a>
 
-      <ul class="nav-links">
+      <ul class="navlinks">
         <li><a href="#shop">Shop</a></li>
-        <li><a href="#auction">Auctions</a></li>
+        <li><a href="#auctions">Auctions</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#support">Support</a></li>
       </ul>
 
-      <button class="cart-button" onclick="openCart()">
+      <button class="cart-btn" onclick="openCart()">
         Cart (<span id="cartCount">0</span>)
       </button>
 
@@ -590,7 +575,6 @@
 
 
   <!-- HERO -->
-
   <header class="hero">
 
     <div class="container">
@@ -598,26 +582,26 @@
       <div class="hero-content">
 
         <div class="eyebrow">
-          Personal Collection
+          Collection
         </div>
 
         <h1>
-          Made for the fans who stayed for the journey.
+          A collection made for the fans.
         </h1>
 
         <p>
           Explore selected jerseys, memorabilia, apparel and exclusive
-          pieces from the collection.
+          auction pieces.
         </p>
 
         <div class="buttons">
 
-          <a href="#shop" class="primary">
-            Explore Collection
+          <a class="primary" href="#shop">
+            Shop Collection
           </a>
 
-          <a href="#auction" class="secondary">
-            View Auction
+          <a class="secondary" href="#auctions">
+            View Auctions
           </a>
 
         </div>
@@ -630,7 +614,6 @@
 
 
   <!-- SHOP -->
-
   <section id="shop">
 
     <div class="container">
@@ -638,18 +621,13 @@
       <div class="section-head">
 
         <div>
-          <div class="eyebrow">
-            Collection
-          </div>
-
-          <h2>
-            Featured Items
-          </h2>
+          <div class="eyebrow">Shop</div>
+          <h2>Featured Collection</h2>
         </div>
 
         <p>
-          Discover approved merchandise, memorabilia and collectible
-          pieces available through the collection.
+          Approved products and memorabilia can be added here as the
+          team supplies the final inventory, photography and pricing.
         </p>
 
       </div>
@@ -657,19 +635,16 @@
 
       <div class="products">
 
-        <!-- PRODUCT 1 -->
-
+        <!-- ITEM 1 -->
         <article class="product">
 
-          <div class="product-image">
-            APPROVED JERSEY PHOTO
+          <div class="product-img">
+            APPROVED SIGNED JERSEY PHOTO
           </div>
 
           <div class="product-info">
 
-            <h3>
-              Signed Jersey
-            </h3>
+            <h3>Signed Jersey</h3>
 
             <p>
               Limited signed jersey from the collection.
@@ -677,15 +652,13 @@
 
             <div class="price-row">
 
-              <span class="price">
-                $250
-              </span>
+              <span class="price">$250</span>
 
               <button
                 class="add"
-                onclick="addToCart('Signed Jersey', 250)"
+                onclick="addToCart('Signed Jersey',250)"
               >
-                Add
+                Add to Cart
               </button>
 
             </div>
@@ -695,35 +668,30 @@
         </article>
 
 
-        <!-- PRODUCT 2 -->
-
+        <!-- ITEM 2 -->
         <article class="product">
 
-          <div class="product-image">
-            APPROVED BASKETBALL PHOTO
+          <div class="product-img">
+            APPROVED SIGNED BASKETBALL PHOTO
           </div>
 
           <div class="product-info">
 
-            <h3>
-              Collector Basketball
-            </h3>
+            <h3>Signed Basketball</h3>
 
             <p>
-              Premium collectible basketball.
+              Collector basketball with approved signature.
             </p>
 
             <div class="price-row">
 
-              <span class="price">
-                $120
-              </span>
+              <span class="price">$120</span>
 
               <button
                 class="add"
-                onclick="addToCart('Collector Basketball', 120)"
+                onclick="addToCart('Signed Basketball',120)"
               >
-                Add
+                Add to Cart
               </button>
 
             </div>
@@ -733,35 +701,63 @@
         </article>
 
 
-        <!-- PRODUCT 3 -->
-
+        <!-- ITEM 3 -->
         <article class="product">
 
-          <div class="product-image">
+          <div class="product-img">
+            APPROVED SIGNED PHOTO
+          </div>
+
+          <div class="product-info">
+
+            <h3>Signed Photograph</h3>
+
+            <p>
+              Collectible signed photograph.
+            </p>
+
+            <div class="price-row">
+
+              <span class="price">$75</span>
+
+              <button
+                class="add"
+                onclick="addToCart('Signed Photograph',75)"
+              >
+                Add to Cart
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- ITEM 4 -->
+        <article class="product">
+
+          <div class="product-img">
             APPROVED APPAREL PHOTO
           </div>
 
           <div class="product-info">
 
-            <h3>
-              Fan Collection Tee
-            </h3>
+            <h3>Collection Tee</h3>
 
             <p>
-              Everyday apparel for supporters.
+              Officially approved collection apparel.
             </p>
 
             <div class="price-row">
 
-              <span class="price">
-                $45
-              </span>
+              <span class="price">$45</span>
 
               <button
                 class="add"
-                onclick="addToCart('Fan Collection Tee', 45)"
+                onclick="addToCart('Collection Tee',45)"
               >
-                Add
+                Add to Cart
               </button>
 
             </div>
@@ -777,69 +773,108 @@
   </section>
 
 
-  <!-- AUCTION -->
-
-  <section id="auction">
+  <!-- AUCTIONS -->
+  <section id="auctions">
 
     <div class="container">
 
       <div class="section-head">
 
         <div>
-
-          <div class="eyebrow">
-            Exclusive
-          </div>
-
-          <h2>
-            Featured Auction
-          </h2>
-
+          <div class="eyebrow">Exclusive</div>
+          <h2>Auctions</h2>
         </div>
+
+        <p>
+          Special items can be offered through an approved auction
+          process with clear bidding rules and closing times.
+        </p>
 
       </div>
 
 
-      <div class="auction">
+      <div class="auction-grid">
 
-        <div class="auction-image">
-          APPROVED AUCTION ITEM PHOTO
-        </div>
+        <!-- AUCTION 1 -->
+        <article class="auction-card">
 
+          <div class="auction-img">
+            APPROVED GAME-WORN JERSEY PHOTO
+          </div>
 
-        <div class="auction-info">
+          <div class="auction-info">
 
-          <h3>
-            Game-Worn Jersey
-          </h3>
+            <h3>Game-Worn Jersey</h3>
 
-          <p>
-            A special collectible offered through the approved auction
-            program.
-          </p>
+            <p>
+              A special collectible from the approved collection.
+            </p>
 
+            <div class="auction-meta">
 
-          <div class="bid-box">
+              <div class="meta">
+                <small>Starting Bid</small>
+                <strong>$250</strong>
+              </div>
 
-            <small>
-              Auction status
-            </small>
+              <div class="meta">
+                <small>Status</small>
+                <strong>Opening Soon</strong>
+              </div>
 
-            <div class="bid">
-              Coming Soon
             </div>
+
+            <button
+              class="primary"
+              onclick="openAuction('Game-Worn Jersey')"
+            >
+              View Auction
+            </button>
 
           </div>
 
+        </article>
 
-          <button
-            class="primary"
-            onclick="showAuction()"
-          >
-            View Auction Details
-          </button>
 
-        </div>
+        <!-- AUCTION 2 -->
+        <article class="auction-card">
+
+          <div class="auction-img">
+            APPROVED SIGNED MEMORABILIA PHOTO
+          </div>
+
+          <div class="auction-info">
+
+            <h3>Signed Memorabilia</h3>
+
+            <p>
+              A limited collectible prepared for auction.
+            </p>
+
+            <div class="auction-meta">
+
+              <div class="meta">
+                <small>Starting Bid</small>
+                <strong>$150</strong>
+              </div>
+
+              <div class="meta">
+                <small>Status</small>
+                <strong>Opening Soon</strong>
+              </div>
+
+            </div>
+
+            <button
+              class="primary"
+              onclick="openAuction('Signed Memorabilia')"
+            >
+              View Auction
+            </button>
+
+          </div>
+
+        </article>
 
       </div>
 
@@ -849,7 +884,6 @@
 
 
   <!-- ABOUT -->
-
   <section id="about">
 
     <div class="container">
@@ -859,17 +893,18 @@
         <div>
 
           <div class="eyebrow">
-            About
+            About the Collection
           </div>
 
           <h2>
-            A collection built around the game.
+            Built around the game and the fans.
           </h2>
 
           <p class="about-text">
-            A dedicated space for selected memorabilia, apparel,
-            collectibles and special pieces connected with the game
-            and its fans.
+            This collection provides a dedicated space for approved
+            memorabilia, apparel and special pieces. Final product
+            descriptions and photography should be supplied and approved
+            by the authorized team before publication.
           </p>
 
         </div>
@@ -878,16 +913,16 @@
         <div class="about-card">
 
           <h3>
-            Sophie Cunningham
+            Sophie Cunningham Collection
           </h3>
 
           <p>
-            Basketball, competition and a connection with the fans.
+            Selected memorabilia, collectibles and fan items.
           </p>
 
           <p>
-            Collection details and announcements can be updated here
-            using content approved by the authorized team.
+            Customer questions can be handled directly through the
+            live support widget.
           </p>
 
         </div>
@@ -900,7 +935,6 @@
 
 
   <!-- SUPPORT -->
-
   <section id="support" class="support">
 
     <div class="container">
@@ -914,14 +948,11 @@
       </h2>
 
       <p>
-        Questions about an item, an order or an upcoming auction?
-        Our support team is available through the chat widget.
+        Ask about products, auctions, orders or collection information
+        through our live support team.
       </p>
 
-      <button
-        class="primary"
-        onclick="openChat()"
-      >
+      <button class="primary" onclick="openChat()">
         Open Live Chat
       </button>
 
@@ -931,10 +962,9 @@
 
 
   <!-- FOOTER -->
-
   <footer>
 
-    <div class="container footer-inner">
+    <div class="container footer">
 
       <span>
         © 2026 Sophie Cunningham Collection
@@ -950,7 +980,6 @@
 
 
   <!-- CART OVERLAY -->
-
   <div
     class="overlay"
     id="overlay"
@@ -959,46 +988,27 @@
 
 
   <!-- CART -->
-
-  <aside
-    class="cart"
-    id="cart"
-  >
+  <aside class="cart" id="cart">
 
     <div class="cart-head">
 
-      <h2>
-        Your Cart
-      </h2>
+      <h2>Your Cart</h2>
 
-      <button
-        class="close"
-        onclick="closeCart()"
-      >
+      <button class="close" onclick="closeCart()">
         ×
       </button>
 
     </div>
 
-
     <div id="cartItems">
-
-      <p class="empty">
-        Your cart is empty.
-      </p>
-
+      <p class="empty">Your cart is empty.</p>
     </div>
 
-
-    <div
-      id="cartTotal"
-      style="margin-top:20px;font-weight:800;"
-    ></div>
-
+    <div class="cart-total" id="cartTotal"></div>
 
     <button
-      class="checkout"
-      onclick="checkout()"
+      class="checkout-btn"
+      onclick="openCheckout()"
     >
       Continue to Checkout
     </button>
@@ -1006,28 +1016,179 @@
   </aside>
 
 
-  <!-- GENERAL MODAL -->
-
-  <div
-    class="modal"
-    id="modal"
-  >
+  <!-- CHECKOUT MODAL -->
+  <div class="modal" id="checkoutModal">
 
     <div class="modal-card">
 
-      <h2 id="modalTitle">
-        Details
+      <h2>
+        Checkout
       </h2>
 
-      <p id="modalText">
-        More information will appear here.
+      <p>
+        Review your order and submit your contact details.
       </p>
+
+
+      <div class="checkout-summary" id="checkoutSummary">
+      </div>
+
+
+      <div class="field">
+
+        <label for="customerName">
+          Full Name
+        </label>
+
+        <input
+          id="customerName"
+          type="text"
+          placeholder="Your full name"
+          autocomplete="name"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="customerEmail">
+          Email Address
+        </label>
+
+        <input
+          id="customerEmail"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="customerMessage">
+          Order / Delivery Notes
+        </label>
+
+        <textarea
+          id="customerMessage"
+          placeholder="Add any relevant order information..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="notice">
+
+        <strong>Payment:</strong><br>
+        The approved payment method will be provided during the
+        final order process. Do not send cryptocurrency to an address
+        displayed elsewhere or supplied by an unverified person.
+
+      </div>
+
 
       <div class="modal-actions">
 
         <button
           class="primary"
-          onclick="closeModal()"
+          onclick="submitOrder()"
+        >
+          Submit Order Inquiry
+        </button>
+
+        <button
+          class="secondary"
+          onclick="closeCheckout()"
+        >
+          Back
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- AUCTION MODAL -->
+  <div class="modal" id="auctionModal">
+
+    <div class="modal-card">
+
+      <h2 id="auctionTitle">
+        Auction
+      </h2>
+
+      <p>
+        This auction interface is ready for the authorized team to
+        enter the final item description, authentication details,
+        bidding rules and closing time.
+      </p>
+
+      <div class="notice">
+        <strong>Current status:</strong>
+        Auction opening soon.
+      </div>
+
+      <div class="field">
+
+        <label for="bidderName">
+          Your Name
+        </label>
+
+        <input
+          id="bidderName"
+          type="text"
+          placeholder="Full name"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="bidderEmail">
+          Email
+        </label>
+
+        <input
+          id="bidderEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="bidAmount">
+          Bid Amount
+        </label>
+
+        <input
+          id="bidAmount"
+          type="number"
+          min="1"
+          placeholder="Enter amount"
+        >
+
+      </div>
+
+      <div class="modal-actions">
+
+        <button
+          class="primary"
+          onclick="submitBidInquiry()"
+        >
+          Submit Bid Inquiry
+        </button>
+
+        <button
+          class="secondary"
+          onclick="closeAuction()"
         >
           Close
         </button>
@@ -1040,20 +1201,31 @@
 
 
   <!-- JAVASCRIPT -->
-
   <script>
 
     let cart = [];
 
 
+    function escapeHTML(text) {
+
+      const div = document.createElement("div");
+
+      div.textContent = text;
+
+      return div.innerHTML;
+
+    }
+
+
     function addToCart(name, price) {
 
       cart.push({
-        name: name,
-        price: price
+        name,
+        price
       });
 
       updateCart();
+
       openCart();
 
     }
@@ -1082,13 +1254,14 @@
         totalBox.textContent = "";
 
         return;
+
       }
 
 
       let total = 0;
 
 
-      items.innerHTML = cart.map((item, index) => {
+      items.innerHTML = cart.map((item,index) => {
 
         total += item.price;
 
@@ -1096,7 +1269,7 @@
         return `
           <div class="cart-item">
 
-            <div class="cart-item-row">
+            <div class="cart-row">
 
               <div>
                 <strong>${escapeHTML(item.name)}</strong>
@@ -1125,21 +1298,9 @@
     }
 
 
-    function escapeHTML(text) {
-
-      const div =
-        document.createElement("div");
-
-      div.textContent = text;
-
-      return div.innerHTML;
-
-    }
-
-
     function removeItem(index) {
 
-      cart.splice(index, 1);
+      cart.splice(index,1);
 
       updateCart();
 
@@ -1172,69 +1333,143 @@
     }
 
 
-    function checkout() {
+    function openCheckout() {
 
       if (cart.length === 0) {
 
-        showModal(
-          "Your cart is empty",
-          "Add an item to your cart before continuing."
-        );
+        alert("Your cart is empty.");
 
         return;
+
       }
 
 
-      showModal(
-        "Checkout",
-        "The approved payment and order-processing system will be connected here before real orders are accepted."
-      );
-
-    }
+      let total = 0;
 
 
-    function showAuction() {
-
-      showModal(
-        "Featured Auction",
-        "The auction details will appear here once the authorized team provides the approved item information, bidding rules and closing time."
-      );
-
-    }
+      const summary =
+        document.getElementById("checkoutSummary");
 
 
-    function showModal(title, text) {
+      summary.innerHTML = cart.map(item => {
 
-      document.getElementById("modalTitle").textContent =
-        title;
+        total += item.price;
 
-      document.getElementById("modalText").textContent =
-        text;
+        return `
+          <div class="checkout-line">
+            <span>${escapeHTML(item.name)}</span>
+            <strong>$${item.price.toFixed(2)}</strong>
+          </div>
+        `;
+
+      }).join("");
+
+
+      summary.innerHTML += `
+        <div class="checkout-line">
+          <strong>Total</strong>
+          <strong>$${total.toFixed(2)}</strong>
+        </div>
+      `;
+
+
+      closeCart();
 
       document
-        .getElementById("modal")
+        .getElementById("checkoutModal")
         .classList.add("active");
 
     }
 
 
-    function closeModal() {
+    function closeCheckout() {
 
       document
-        .getElementById("modal")
+        .getElementById("checkoutModal")
         .classList.remove("active");
 
     }
 
 
+    function submitOrder() {
+
+      const name =
+        document.getElementById("customerName").value.trim();
+
+      const email =
+        document.getElementById("customerEmail").value.trim();
+
+
+      if (!name || !email) {
+
+        alert(
+          "Please enter your name and email address."
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Your order inquiry has been prepared. The authorized order-processing system will be connected before real orders are accepted."
+      );
+
+    }
+
+
+    function openAuction(item) {
+
+      document.getElementById("auctionTitle").textContent =
+        item;
+
+      document
+        .getElementById("auctionModal")
+        .classList.add("active");
+
+    }
+
+
+    function closeAuction() {
+
+      document
+        .getElementById("auctionModal")
+        .classList.remove("active");
+
+    }
+
+
+    function submitBidInquiry() {
+
+      const name =
+        document.getElementById("bidderName").value.trim();
+
+      const email =
+        document.getElementById("bidderEmail").value.trim();
+
+      const amount =
+        document.getElementById("bidAmount").value.trim();
+
+
+      if (!name || !email || !amount) {
+
+        alert(
+          "Please complete your name, email and bid amount."
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Your bid inquiry has been prepared. The official auction system will confirm bidding once the authorized auction details are published."
+      );
+
+    }
+
+
     function openChat() {
-
-      /*
-        The real tawk.to floating widget is installed below.
-
-        Clicking this button attempts to open the tawk.to chat
-        when the widget API is available.
-      */
 
       if (
         typeof Tawk_API !== "undefined" &&
@@ -1245,9 +1480,8 @@
 
       } else {
 
-        showModal(
-          "Live Chat",
-          "The live-chat service is loading. Please use the chat button displayed on the page."
+        alert(
+          "Live chat is loading. Please use the chat button in the bottom corner."
         );
 
       }
@@ -1271,7 +1505,7 @@
     var Tawk_API = Tawk_API || {};
     var Tawk_LoadStart = new Date();
 
-    (function() {
+    (function(){
 
       var s1 = document.createElement("script");
       var s0 = document.getElementsByTagName("script")[0];
@@ -1283,16 +1517,15 @@
 
       s1.charset = 'UTF-8';
 
-      s1.setAttribute('crossorigin', '*');
+      s1.setAttribute('crossorigin','*');
 
-      s0.parentNode.insertBefore(s1, s0);
+      s0.parentNode.insertBefore(s1,s0);
 
     })();
 
   </script>
 
   <!--End of Tawk.to Script-->
-
 
 </body>
 </html>
