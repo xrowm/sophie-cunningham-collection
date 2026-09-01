@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection Manager</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #171717;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 22px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      opacity: .7;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 7px;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      background: #fafafa;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #111;
+      color: white;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .delete {
+      background: #eee;
+      color: #111;
+      margin-top: 10px;
+    }
+
+    .message {
+      margin-top: 14px;
+      font-weight: 600;
+    }
+
+    .auction {
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .auction img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .auction h3 {
+      margin-bottom: 5px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .logout {
+      float: right;
+      background: #333;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <button class="logout hidden" id="logoutBtn">Log out</button>
+  <h1>Collection Manager</h1>
+  <p>Manage auction items and photographs</p>
+</header>
+
+<main>
+
+  <section class="card" id="loginCard">
+    <h2>Manager Login</h2>
+
+    <label>Email</label>
+    <input id="email" type="email" autocomplete="email">
+
+    <label>Password</label>
+    <input id="password" type="password" autocomplete="current-password">
+
+    <button class="primary" id="loginBtn">Sign in</button>
+
+    <div class="message" id="loginMessage"></div>
+  </section>
+
+  <section id="dashboard" class="hidden">
+
+    <div class="card">
+      <h2>Add New Auction</h2>
+
+      <label>Item photo</label>
+      <input id="photo" type="file"
+             accept="image/jpeg,image/png,image/webp">
+
+      <label>Item name</label>
+      <input id="title" type="text"
+             placeholder="Example: Signed Game Jersey">
+
+      <label>Description</label>
+      <textarea id="description"
+                placeholder="Describe the item..."></textarea>
+
+      <label>Starting bid (USD)</label>
+      <input id="startingBid"
+             type="number"
+             min="0"
+             step="0.01"
+             placeholder="0.00">
+
+      <label>Auction closing date</label>
+      <input id="auctionEnd" type="datetime-local">
+
+      <button class="primary" id="publishBtn">
+        Publish Auction
+      </button>
+
+      <div class="message" id="publishMessage"></div>
+    </div>
+
+    <div class="card">
+      <h2>Current Auctions</h2>
+      <div id="auctionList">Loading...</div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+  const SUPABASE_URL =
+    "https://rtrgpqkuwmycdevkuxql.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+   sb_publishable_w2fjdYavyKyHp-t4uLVlxQ_kEGnIG9m. 
+
+  const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const loginCard = document.getElementById("loginCard");
+  const dashboard = document.getElementById("dashboard");
+  const loginMessage = document.getElementById("loginMessage");
+  const publishMessage = document.getElementById("publishMessage");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  async function checkLogin() {
+    const { data } = await client.auth.getSession();
+
+    if (data.session) {
+      showDashboard();
+    } else {
+      showLogin();
+    }
+  }
+
+  function showLogin() {
+    loginCard.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+    logoutBtn.classList.add("hidden");
+  }
+
+  function showDashboard() {
+    loginCard.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    logoutBtn.classList.remove("hidden");
+    loadAuctions();
+  }
+
+  document.getElementById("loginBtn").onclick =
+    async function () {
+
+      loginMessage.textContent = "Signing in...";
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const { error } =
+        await client.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if (error) {
+        loginMessage.textContent = error.message;
+        return;
+      }
+
+      loginMessage.textContent = "";
+      showDashboard();
+    };
+
+  logoutBtn.onclick =
+    async function () {
+      await client.auth.signOut();
+      showLogin();
+    };
+
+  document.getElementById("publishBtn").onclick =
+    async function () {
+
+      publishMessage.textContent =
+        "Uploading auction...";
+
+      const file =
+        document.getElementById("photo").files[0];
+
+      const title =
+        document.getElementById("title").value.trim();
+
+      const description =
+        document.getElementById("description").value.trim();
+
+      const startingBid =
+        Number(
+          document.getElementById("startingBid").value
+        );
+
+      const auctionEnd =
+        document.getElementById("auctionEnd").value;
+
+      if (!file || !title || !auctionEnd) {
+        publishMessage.textContent =
+          "Please add a photo, item name and closing date.";
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        publishMessage.textContent =
+          "Please use an image smaller than 5 MB.";
+        return;
+      }
+
+      const extension =
+        file.name.split(".").pop().toLowerCase();
+
+      const fileName =
+        crypto.randomUUID() + "." + extension;
+
+      const upload =
+        await client.storage
+          .from("auction-images")
+          .upload(fileName, file, {
+            cacheControl: "3600",
+            upsert: false
+          });
+
+      if (upload.error) {
+        publishMessage.textContent =
+          upload.error.message;
+        return;
+      }
+
+      const publicUrl =
+        client.storage
+          .from("auction-images")
+          .getPublicUrl(fileName)
+          .data.publicUrl;
+
+      const insert =
+        await client
+          .from("auctions")
+          .insert({
+            title: title,
+            description: description,
+            image_url: publicUrl,
+            starting_bid: startingBid || 0,
+            current_bid: startingBid || 0,
+            auction_end:
+              new Date(auctionEnd).toISOString(),
+            published: true
+          });
+
+      if (insert.error) {
+        publishMessage.textContent =
+          insert.error.message;
+        return;
+      }
+
+      publishMessage.textContent =
+        "Auction published successfully.";
+
+      document.getElementById("photo").value = "";
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("startingBid").value = "";
+      document.getElementById("auctionEnd").value = "";
+
+      loadAuctions();
+    };
+
+  async function loadAuctions() {
+
+    const list =
+      document.getElementById("auctionList");
+
+    list.innerHTML = "Loading...";
+
+    const { data, error } =
+      await client
+        .from("auctions")
+        .select("*")
+        .order("created_at", {
+          ascending: false
+        });
+
+    if (error) {
+      list.innerHTML =
+        "Unable to load auctions.";
+      return;
+    }
+
+    if (!data.length) {
+      list.innerHTML =
+        "No auctions have been added yet.";
+      return;
+    }
+
+    list.innerHTML = "";
+
+    data.forEach(function(item) {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "auction";
+
+      if (item.image_url) {
+
+        const image =
+          document.createElement("img");
+
+        image.src = item.image_url;
+        image.alt = item.title;
+
+        div.appendChild(image);
+      }
+
+      const title =
+        document.createElement("h3");
+
+      title.textContent = item.title;
+      div.appendChild(title);
+
+      const description =
+        document.createElement("p");
+
+      description.textContent =
+        item.description || "";
+
+      div.appendChild(description);
+
+      const bid =
+        document.createElement("p");
+
+      bid.textContent =
+        "Starting bid: $" +
+        Number(item.starting_bid).toFixed(2);
+
+      div.appendChild(bid);
+
+      const deleteBtn =
+        document.createElement("button");
+
+      deleteBtn.className = "delete";
+      deleteBtn.textContent = "Delete";
+
+      deleteBtn.onclick =
+        function() {
+          deleteAuction(item);
+        };
+
+      div.appendChild(deleteBtn);
+
+      list.appendChild(div);
+    });
+  }
+
+  async function deleteAuction(item) {
+
+    if (!confirm("Delete this auction?")) {
+      return;
+    }
+
+    const { error } =
+      await client
+        .from("auctions")
+        .delete()
+        .eq("id", item.id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    loadAuctions();
+  }
+
+  client.auth.onAuthStateChange(
+    function(event, session) {
+      if (session) {
+        showDashboard();
+      } else {
+        showLogin();
+      }
+    }
+  );
+
+  checkLogin();
+</script>
+
+</body>
+</html>
